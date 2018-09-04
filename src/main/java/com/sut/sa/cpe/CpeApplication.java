@@ -1,5 +1,9 @@
 package com.sut.sa.cpe;
 
+
+import com.sut.sa.cpe.entity.*;
+import com.sut.sa.cpe.repository.*;
+
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

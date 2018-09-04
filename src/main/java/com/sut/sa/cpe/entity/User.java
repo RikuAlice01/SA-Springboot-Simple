@@ -1,4 +1,4 @@
-package com.sut.sa.cpe;
+package com.sut.sa.cpe.entity;
 
 import lombok.*;
 

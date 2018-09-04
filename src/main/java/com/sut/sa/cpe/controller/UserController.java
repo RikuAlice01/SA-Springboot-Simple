@@ -1,4 +1,7 @@
-package com.sut.sa.cpe;
+package com.sut.sa.cpe.controller;
+
+import com.sut.sa.cpe.entity.User;
+import com.sut.sa.cpe.repository.UserRepository;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
