@@ -1,12 +1,12 @@
 package com.sut.sa.cpe.repository;
 
-import com.sut.sa.cpe.entity.Video;
+import com.sut.sa.cpe.entity.View;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource
 public
-interface VideoRepository extends JpaRepository<Video, Long> {
-    Video findByCode(String code);
+interface ViewRepository extends JpaRepository<View, Long> {
+
 }

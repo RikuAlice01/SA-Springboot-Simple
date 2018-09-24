@@ -3,44 +3,32 @@ package com.sut.sa.cpe.entity;
 import lombok.*;
 
 import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 
+@Data
 @Entity
-//@Getter @Setter
+@Getter @Setter
 @NoArgsConstructor
-@ToString @EqualsAndHashCode
+@ToString
+@EqualsAndHashCode
 public class Comment {
-    @Id 
-    @GeneratedValue
+    @Id
+    @SequenceGenerator(name="comment_seq",sequenceName="comment_seq")               
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="comment_seq")  
+    @Column(name="Comment_ID")
+
     private @NonNull Long id;
     private @NonNull String content;
 
-    private @NonNull Long userid;
-    private @NonNull Long videoid;
+    @ManyToOne
+    private  User commentedUser;
 
-	public void setContent(String content) {
-        this.content = content;
-	}
-
-    public Object getContent() {
-		return this.content;
-    }
-
-    public void setUserID(Long userid) {
-        this.userid = userid;
-	}
-
-	public Long getUserID() {
-		return this.userid;
-    }
-
-    public void setVideoID(Long videoid) {
-        this.videoid = videoid;
-	}
-
-	public Long getVideoID() {
-		return this.videoid;
-    }
+    @ManyToOne
+    private  Video commentedVideo;
 }
 
