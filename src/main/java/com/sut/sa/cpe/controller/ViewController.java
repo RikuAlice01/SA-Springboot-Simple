@@ -21,8 +21,8 @@ import java.util.stream.Collectors;
 @RestController
 public class ViewController {
     @Autowired   private final ViewRepository    viewRepository;
-                 private       VideoRepository   videoRepository;
-                 private       UserRepository    userRepository;
+    @Autowired   private       VideoRepository   videoRepository;
+    @Autowired   private       UserRepository    userRepository;
 
     ViewController(ViewRepository repository) {
         this.viewRepository = repository;

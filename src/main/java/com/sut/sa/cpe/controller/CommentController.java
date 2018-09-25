@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.RestController;
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -19,8 +19,8 @@ import java.util.stream.Collectors;
 @RestController
 class CommentController {
     @Autowired  private final CommentRepository   commentRepository;
-                private       VideoRepository     videoRepository;
-                private       UserRepository      userRepository;
+    @Autowired  private       VideoRepository     videoRepository;
+    @Autowired  private       UserRepository      userRepository;
 
 @Autowired
      CommentController(CommentRepository commentRepository) {

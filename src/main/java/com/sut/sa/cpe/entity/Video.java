@@ -6,6 +6,9 @@ import javax.persistence.Id;
 
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Column;
@@ -28,8 +31,9 @@ public class Video {
     private @NonNull String code;
     private @NonNull String title;
     private @NonNull String url;
-
+    
     @ManyToOne
+    @JsonIgnore
     private User videoUser;
 
 }
