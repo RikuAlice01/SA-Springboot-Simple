@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @RestController
 public class PlaylistController {
 
-    @Autowired  private final PlaylistRepository playlistRepository;
+    @Autowired  private   final    PlaylistRepository playlistRepository;
     @Autowired  private       UserRepository     userRepository;
     @Autowired  private       VideoRepository    videoRepository;
     
@@ -38,24 +38,35 @@ public class PlaylistController {
                  .collect(Collectors.toList());
      }
 
-     @PostMapping("/newPlaylsit/{adder}/{namePlaylist}")
-     public Playlist newPlaylsit(@PathVariable String namePlaylist,@PathVariable String adder,@PathVariable String code) {
+    // ทดสอบโดย ใช้คำสั่ง curl -iX POST  http://localhost:8080/Playlsit/new/Sitthichai/testPlaylist
+
+     @PostMapping("/Playlsit/new/{adder}/{namePlaylist}")
+     public Playlist newPlaylsit(@PathVariable String namePlaylist,@PathVariable String adder) {
 
         Playlist newPlaylist = new Playlist();
         User userPlaylsit = userRepository.findByUsername(adder);
         newPlaylist.setAdder(userPlaylsit);
         newPlaylist.setName(namePlaylist);
-         return playlistRepository.save(newPlaylist); // บันทึก Objcet ชื่อ Playlist
+        
+
+         return  playlistRepository.save(newPlaylist); // บันทึก Objcet ชื่อ Playlist
      }
 
-     
-     @PostMapping("/newPlaylsit/{adder}/{namePlaylist}/{listCode}")
-     public void addSetVideo(@PathVariable String namePlaylist,@PathVariable String adder,@PathVariable Collection<String> listCode) {
-        Playlist Playlist = new Playlist();
+    // เพิ่ม Playlist ก่อน
+    // ทดสอบโดย ใช้คำสั่ง curl -iX POST  http://localhost:8080/Playlsit/addVideo/2/dXi2FDWnySU,O8etN-2fc1c,r4j6H-f9j8Y 
+
+     @PostMapping("/Playlsit/addVideo/{idPlaylist}/{listCode}")
+     public Playlist addVideo(@PathVariable long idPlaylist,@PathVariable String[] listCode) {
+        
+        Playlist playlist = playlistRepository.findById(idPlaylist);
+        Video addVideo = new Video();
+
             for (String code : listCode) {
-                Video addVideo = videoRepository.findByCode(code);
-                Playlist.getAddVideo().add(addVideo);
-                playlistRepository.save(Playlist); // บันทึก Objcet ชื่อ Playlist
+                addVideo = videoRepository.findByCode(code);
+                playlist.getListVideo().add(addVideo);
             }
-        }
+
+         return  playlistRepository.save(playlist); // บันทึก Objcet ชื่อ Playlist
+
+        }      
      }

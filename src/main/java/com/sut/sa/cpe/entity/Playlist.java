@@ -3,12 +3,15 @@ package com.sut.sa.cpe.entity;
 import lombok.*;
 
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+
 import javax.persistence.OneToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
 
 import java.util.Collection;
-import java.util.LinkedHashSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -23,23 +26,29 @@ import javax.persistence.GenerationType;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-
+@Table(name="playList")
 public class Playlist {
     @Id
+    
     @SequenceGenerator(name="playlist_seq",sequenceName="playlist_seq")               
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="playlist_seq")  
-    @Column(name="Playlist_ID")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="playlist_seq")  
+    @Column(name="Playlist_ID",unique = true, nullable = false)
 
     private @NonNull Long id;
     private @NonNull String name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = User.class)
+    @JoinColumn(name = "AD_ID", insertable = true)
     private  User adder;
 
-
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Collection<Video> addVideo = new LinkedHashSet<Video>();
-
+        //ref https://en.wikibooks.org/wiki/Java_Persistence/ManyToOne
+        //    https://stackoverflow.com/questions/49158025/spring-boot-how-to-save-many-to-one-entities-to-database
+        //    ยังมีปัญหาเรื่องเพิ่มวิดีโอในอีก Playlist แล้ววีดีโอใน Playlist เดิมจะหายไป
+    
+        @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+       // @JoinColumn(name="Playlist_ID", referencedColumnName="Playlist_ID", insertable = true)  
+         private Collection<Video> listVideo;
+    
 }
 
 
