@@ -19,8 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-
-
 @RestController
 public class PlaylistController {
 
@@ -47,16 +45,17 @@ public class PlaylistController {
         User userPlaylsit = userRepository.findByUsername(adder);
         newPlaylist.setAdder(userPlaylsit);
         newPlaylist.setName(namePlaylist);
-         return playlistRepository.save(newPlaylist); // บันทึก Objcet ชื่อ user
+         return playlistRepository.save(newPlaylist); // บันทึก Objcet ชื่อ Playlist
      }
 
-     @PostMapping("/newPlaylsit/{adder}/{namePlaylist}/{code}")
-     public Playlist addVideo(@PathVariable String namePlaylist,@PathVariable String adder,@PathVariable String code) {
-
+     
+     @PostMapping("/newPlaylsit/{adder}/{namePlaylist}/{listCode}")
+     public void addSetVideo(@PathVariable String namePlaylist,@PathVariable String adder,@PathVariable Collection<String> listCode) {
         Playlist Playlist = new Playlist();
-        Video addVideo = videoRepository.findByCode(code);
-        Playlist.getAddVideo().add(addVideo);
-         return playlistRepository.save(Playlist); // บันทึก Objcet ชื่อ user
+            for (String code : listCode) {
+                Video addVideo = videoRepository.findByCode(code);
+                Playlist.getAddVideo().add(addVideo);
+                playlistRepository.save(Playlist); // บันทึก Objcet ชื่อ Playlist
+            }
+        }
      }
-
-}

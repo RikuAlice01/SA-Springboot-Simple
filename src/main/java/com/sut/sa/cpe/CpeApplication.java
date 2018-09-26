@@ -2,12 +2,13 @@ package com.sut.sa.cpe;
 
 import com.sut.sa.cpe.entity.*;
 import com.sut.sa.cpe.repository.*;
-import com.sut.sa.cpe.controller.*;
 
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.filter.CharacterEncodingFilter;
+
 import java.util.stream.Stream;
 
 @SpringBootApplication
@@ -18,16 +19,24 @@ public class CpeApplication {
     }
 
     @Bean
+    CharacterEncodingFilter characterEncodingFilter() {
+        CharacterEncodingFilter filter = new CharacterEncodingFilter();
+        filter.setEncoding("UTF-8");
+        filter.setForceEncoding(true);
+        return filter;
+    }
+
+    @Bean
     ApplicationRunner init(UserRepository userRepository, CommentRepository commentRepository,
             VideoRepository videoRepository,PlaylistRepository playlistRepository) {
         return args -> {
             Stream.of("Tanapon", "Sitthichai", "Somchai", "Nanti").forEach(userName -> { // Stream "ชื่อ" ผ่านตัวแปร
                                                                                          // name
                 // โดยวนลูปตามจำนวนข้อมูล
-                //  User user = new User();
-                //   user.setUsername(userName); // set userName บน Object ชื่อ user
-                //   userrepository.save(user); // บันทึก Objcet ชื่อ user
-                new UserController(userRepository).newUser(userName);
+                   User user = new User();
+                   user.setUsername(userName); // set userName บน Object ชื่อ user
+                   userRepository.save(user); // บันทึก Objcet ชื่อ user
+              //  new UserController(userRepository).newUser(userName);
               
                 Video newVideo = new Video(); // สร้าง Object Video
                 Comment comment = new Comment(); // สร้าง Object Comment
