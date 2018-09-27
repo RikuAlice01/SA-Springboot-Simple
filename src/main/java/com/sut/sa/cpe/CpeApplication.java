@@ -28,7 +28,7 @@ public class CpeApplication {
 
     @Bean
     ApplicationRunner init(UserRepository userRepository, CommentRepository commentRepository,
-            VideoRepository videoRepository, PlaylistRepository playlistRepository) {
+            VideoRepository videoRepository, PlaylistRepository playlistRepository,PL_VRepository pl_vRepository) {
         return args -> {
             Stream.of("Tanapon", "Sitthichai", "Somchai", "Nanti").forEach(userName -> { // Stream "ชื่อ" ผ่านตัวแปร
                                                                                          // name
@@ -94,47 +94,78 @@ public class CpeApplication {
             });
 
             Playlist newPlaylist = new Playlist();
+            
+                          
             User userPlaylsit = userRepository.findByUsername("Sitthichai"); // สร้าง playlist
             newPlaylist.setName("Sitthichai's Playlist");
             newPlaylist.setAdder(userPlaylsit);
             playlistRepository.save(newPlaylist);
 
-            Playlist playlist = playlistRepository.findById(1); // add video ครั้งที่ 1
-            Video addVideo1 = videoRepository.findByCode("dXi2FDWnySU");
-            Video addVideo2 = videoRepository.findByCode("r4j6H-f9j8Y");
-            playlist.getListVideo().add(addVideo1);
-            playlist.getListVideo().add(addVideo2);
-            playlistRepository.save(playlist);
+             Playlist playlist = playlistRepository.findById(1); // add video ครั้งที่ 1
+             Video addVideo1 = videoRepository.findByCode("dXi2FDWnySU");
+             Video addVideo2 = videoRepository.findByCode("r4j6H-f9j8Y");
 
-            Playlist playlist2 = playlistRepository.findById(1);
-            Video addVideo12 = videoRepository.findByCode("O8etN-2fc1c"); // add video ครั้งที่ 2
-            playlist2.getListVideo().add(addVideo12);
-            playlistRepository.save(playlist2);
+             PL_V newPL_V1 = new PL_V();
+             newPL_V1.setVideo(addVideo1);
+             newPL_V1.setPlaylistId((long) 1);
+             pl_vRepository.save(newPL_V1);
+             playlist.getListVideo().add(newPL_V1);
+
+               PL_V newPL_V2 = new PL_V();
+               newPL_V2.setVideo(addVideo2);
+               pl_vRepository.save(newPL_V2);
+               playlist.getListVideo().add(newPL_V2);
+               playlistRepository.save(playlist);
+
+             Playlist playlist2 = playlistRepository.findById(1);
+             Video addVideo12 = videoRepository.findByCode("O8etN-2fc1c"); // add video ครั้งที่ 2
+
+             PL_V newPL_V3 = new PL_V();
+             newPL_V3.setVideo(addVideo12);
+             newPL_V3.setPlaylistId((long)1);
+             pl_vRepository.save(newPL_V3);
+
+             playlist2.getListVideo().add(newPL_V3);
+             playlistRepository.save(playlist2);
 
 
+             Playlist newPlaylistA = new Playlist();
+             User userPlaylsitA = userRepository.findByUsername("Tanapon"); // สร้าง playlist
+             newPlaylistA.setName("Sitthichai's Playlist2");
+             newPlaylistA.setAdder(userPlaylsitA);
+             playlistRepository.save(newPlaylistA);
 
+            //  Playlist playlistA1 = playlistRepository.findById(2); // add video ครั้งที่ 1
+            //  Video addVideoA1 = videoRepository.findByCode("dXi2FDWnySU");
+            //  Video addVideoA2 = videoRepository.findByCode("r4j6H-f9j8Y");
+            
+            //  PL_V newPL_V4 = new PL_V();
+            //  newPL_V4.setVideo(addVideoA1);
+            //  newPL_V4.setPlaylistId((long)2);
+            //  pl_vRepository.save(newPL_V4);
+            //  playlistA1.getListVideo().add(newPL_V4);
 
-            Playlist newPlaylistA = new Playlist();
-            User userPlaylsitA = userRepository.findByUsername("Sitthichai"); // สร้าง playlist
-            newPlaylistA.setName("Sitthichai's Playlist2");
-            newPlaylistA.setAdder(userPlaylsitA);
-            playlistRepository.save(newPlaylistA);
+            //  PL_V newPL_V5 = new PL_V();
+            //  newPL_V5.setVideo(addVideoA2);
+            //  newPL_V5.setPlaylistId((long)2);
+            //  pl_vRepository.save(newPL_V5);
+            //  playlistA1.getListVideo().add(newPL_V5);
+            //  playlistRepository.save(playlistA1);
 
-            Playlist playlistA1 = playlistRepository.findById(2); // add video ครั้งที่ 1
-            Video addVideoA1 = videoRepository.findByCode("dXi2FDWnySU");
-            Video addVideoA2 = videoRepository.findByCode("r4j6H-f9j8Y");
-            playlist.getListVideo().add(addVideoA1);
-            playlist.getListVideo().add(addVideoA2);
-            playlistRepository.save(playlistA1);
+            //  Playlist playlistA2 = playlistRepository.findById(2);
+            //  Video addVideoA3 = videoRepository.findByCode("O8etN-2fc1c"); // add video ครั้งที่ 2
 
-            Playlist playlistA2 = playlistRepository.findById(2);
-            Video addVideoA3 = videoRepository.findByCode("O8etN-2fc1c"); // add video ครั้งที่ 2
-            playlist2.getListVideo().add(addVideoA3);
-            playlistRepository.save(playlistA2);         
+            //  PL_V newPL_V6 = new PL_V();
+            //  newPL_V6.setVideo(addVideoA3);
+            //  newPL_V6.setPlaylistId((long)2);
+            //  pl_vRepository.save(newPL_V6);
+            //  playlistA2.getListVideo().add(newPL_V6);
+            //  playlistRepository.save(playlistA2);         
 
             videoRepository.findAll().forEach(System.out::println); // แสดง ข้อมูลทั้งหมดใน Entity video บน Terminal
             commentRepository.findAll().forEach(System.out::println); // แสดง ข้อมูลทั้งหมดใน Entity comment บน Terminal
             userRepository.findAll().forEach(System.out::println); // แสดง ข้อมูลทั้งหมดใน Entity user บน Terminal
+            pl_vRepository.findAll().forEach(System.out::println); // แสดง ข้อมูลทั้งหมดใน Entity playlist บน
             playlistRepository.findAll().forEach(System.out::println); // แสดง ข้อมูลทั้งหมดใน Entity playlist บน
                                                                        // Terminal
 

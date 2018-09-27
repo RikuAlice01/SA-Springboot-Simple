@@ -26,7 +26,7 @@ public class Video {
     @Id
     @SequenceGenerator(name="video_seq",sequenceName="video_seq")               
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="video_seq")  
-    @Column(name = "VIDEO_ID", unique = true, nullable = false)
+    @Column(name = "VIDEO_ID", unique = true, nullable = true)
     private @NonNull Long id;
 
     @Column(name="code")
@@ -39,6 +39,18 @@ public class Video {
     @JoinColumn(name = "V_ID", insertable = true)
     private User videoUser;
 
-    @Column(name="Playlist_ID")
-    private Long playlsitId;
+   // @ManyToOne(fetch = FetchType.EAGER, targetEntity = Playlist.class)
+   // @JoinColumn(name = "playlist_ID")
+
+  // @Column(name="Playlist_ID")
+  // @JoinColumn(name="V_ID", referencedColumnName="VIDEO_ID", insertable = true)
+   // private long playlistId;
+
+// @ManyToOne(fetch = FetchType.EAGER, targetEntity = Playlist.class)
+// @JoinColumn(name = "listVideo", nullable=false)
+// @JsonBackReference
+// private Playlist playlistId;
+
+
+
 }
