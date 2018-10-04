@@ -30,7 +30,7 @@ public class PL_V {
     @Column(name="PLV_ID",unique = true, nullable = true)
     private @NonNull Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Video.class,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Video.class)
     @JoinColumn(name = "VS_ID", insertable = true)
     private  Video video;
 

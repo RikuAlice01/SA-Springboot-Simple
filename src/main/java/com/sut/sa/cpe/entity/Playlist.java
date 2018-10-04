@@ -35,7 +35,7 @@ public class Playlist {
     private @NonNull Long id;
     private @NonNull String name;
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = User.class,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = User.class)
     @JoinColumn(name = "AD_ID", insertable = true)
     private  User adder;
 

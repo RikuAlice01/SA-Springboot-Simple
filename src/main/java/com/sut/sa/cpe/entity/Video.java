@@ -36,7 +36,7 @@ public class Video {
     private @NonNull String url;
     
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = User.class,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = User.class)
     @JoinColumn(name = "V_ID", insertable = true)
     private User videoUser;
 
