@@ -27,13 +27,11 @@ class CommentController {
         this.commentRepository = commentRepository;
     }
 
-    
     @GetMapping("/Comments")
     public Collection<Comment> Comment() {
         return commentRepository.findAll().stream()
                 .collect(Collectors.toList());
     }
-
 
     @PutMapping("/Commenting/{userName}/{code}/{CommentText}")
     public Comment newComment(@PathVariable String CommentText,@PathVariable String userName,@PathVariable String code) {

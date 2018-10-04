@@ -10,6 +10,7 @@ import javax.persistence.Table;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -35,7 +36,7 @@ public class Video {
     private @NonNull String url;
     
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = User.class)
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = User.class,cascade = CascadeType.ALL)
     @JoinColumn(name = "V_ID", insertable = true)
     private User videoUser;
 

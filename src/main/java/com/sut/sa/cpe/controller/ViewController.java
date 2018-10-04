@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -29,11 +30,16 @@ public class ViewController {
     }
 
 
-    @GetMapping("/Views/{VideoId}")
-    public Collection<View> Views(@PathVariable Long VideoId) {
-
+    @GetMapping("/Views")
+    public Collection<View> Views() {
         return viewRepository.findAll().stream()
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping("/Views/{VideoId}")
+    public Optional<View> Views(@PathVariable Long VideoId) {
+        Optional<View> V = viewRepository.findById(VideoId);
+        return V;
     }
 
     @PostMapping("/Views/{userName}/{videoCode}")
